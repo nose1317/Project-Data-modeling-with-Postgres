@@ -6,6 +6,10 @@ from sql_queries import *
 
 
 def process_song_file(cur, filepath):
+    """
+    convert the JSON files into DataFrame then Select the related song data from the DataFrame and place it into 'songs' table,
+    then Select the related User data from the DataFrame and place it into 'artists' table.
+    """
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -19,6 +23,13 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    convert the JSON files into DataFrame then Filter records by NextSong,
+    Convert the ts timestamp column to DateTime, Extract the timestamp, hour, day, week of year, month, year, and weekday
+    from the ts column into new columns, then Create a data frame from the columns these columns called time_df, then insert each row INTO
+    the user and songplay tables
+    """
+
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -67,6 +78,16 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    Description: This function can be used to read the file in the filepath (data/log_data)
+    to get the user and time info and used to populate the users and time dim tables.
+
+    Arguments:
+        cur: the cursor object.
+        filepath: log data file path.
+
+        Returns: None
+        """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
