@@ -14,7 +14,7 @@ songplay_table_create = ("""  CREATE TABLE IF NOT EXISTS songplays (
         level varchar,
         songg_id varchar,
         artist_id varchar,
-        session_id int,
+        session_id int NOT NULL,
         location varchar,
         user_agent varchar,
         song_id SERIAL PRIMARY KEY)
@@ -28,17 +28,17 @@ user_table_create = (""" CREATE TABLE IF NOT EXISTS users (
         level varchar)
 """)
 
-song_table_create = (""" CREATE TABLE IF NOT EXISTS songs (
-        song_id varchar PRIMARY KEY,
-        title varchar,
-        artist_id varchar,
-        year int,
+song_table_create = ("""  CREATE TABLE IF NOT EXISTS songs (
+        song_id VARCHAR NOT NULL PRIMARY KEY,
+        title VARCHAR NOT NULL,
+        artist_id VARCHAR(255) NOT NULL,
+        year INT,
         duration numeric)
 """)
 
 artist_table_create = (""" CREATE TABLE IF NOT EXISTS artists (
-        artist_id varchar PRIMARY KEY,
-        artist_name varchar,
+        artist_id varchar NOT NULL PRIMARY KEY,
+        artist_name varchar NOT NULL,
         artist_location varchar,
         artist_latitude decimal,
         artist_longitude decimal)
